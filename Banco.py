@@ -8,6 +8,7 @@ def withdraw(ammount, balance, withdraw_counter):
 
         balance -= ammount
         print(f'Operação realizada com sucesso!\nSeu novo saldo é: R$ {balance}')
+
         withdraw_counter +=1
 
         statement_increment = (strftime("%d-%m-%Y %H:%M:%S", gmtime())) + f"      SAQUE     R$ {ammount:.2f}\n"
@@ -28,7 +29,7 @@ def check_ammount(operation, ammount):
     while True:
 
         confirmation = int(input(
-f'''############################################
+f'''\n############################################
 
 O valor que você quer {operation} é {ammount}?
 
@@ -104,8 +105,13 @@ next_operation_text = '''
 ############################################
 '''
 no_operations = True
+date = (strftime("%d-%m-%Y", gmtime()))
 
 while True:
+    
+    if date != (strftime("%d-%m-%Y", gmtime())):
+        date = (strftime("%d-%m-%Y", gmtime()))
+        withdraw_counter = 0
     
     previous_balance = balance
     operation = int(input(menu))
@@ -178,7 +184,6 @@ while True:
     elif operation == 3:
 
         print("\nOperação de VISUALIZAR EXTRATO selecionada!\n")
-        print(no_operations)
         if no_operations == True:
             print(f'''################## EXTRATO ##################
                   
