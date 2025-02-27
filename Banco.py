@@ -62,6 +62,9 @@ Selecione a operação desejada:
 ###############################
 '''
 
+statement = '''
+############## EXTRATO ###############'''
+
 while True:
     operation = int(input(menu))
     if operation == 1:
