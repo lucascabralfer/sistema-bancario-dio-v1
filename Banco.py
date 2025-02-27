@@ -87,7 +87,8 @@ while True:
         else:
             print(f'O limite de {WITHDRAW_COUNTER_MAX} saques já foi atingido!')
     elif operation == 3:
-        print("\nOperação de VISUALIZAR EXTRATO selecionada!")
+        print("\nOperação de VISUALIZAR EXTRATO selecionada!\n")
+        print(statement)
     elif operation == 0:
         print("\nOperação de CANCELADA!")
         break
