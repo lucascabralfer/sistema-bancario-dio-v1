@@ -28,10 +28,14 @@ def check_ammount(operation, ammount):
     while True:
 
         confirmation = int(input(
-f'''O valor que você quer {operation} é {ammount}?
+f'''############################################
+
+O valor que você quer {operation} é {ammount}?
 [1] - SIM
 [2] - NÃO
 [0] - CANCELAR
+
+############################################
 '''))
 
         if confirmation == 1:
@@ -52,7 +56,7 @@ f'''O valor que você quer {operation} é {ammount}?
         else:
             print("\nOpção INVÁLIDA! \nTente novamente:")   
 
-    return ammount                        
+    return ammount, confirmation                        
 
 def deposit(ammount, balance):
     balance += ammount
@@ -112,14 +116,16 @@ while True:
         while ammount < 0:
             ammount = float(input('Valor invalido! Forneça um novo valor: R$ '))
         
-        ammount = check_ammount(operation=operation, ammount=ammount)
+        ammount, confirmation = check_ammount(operation=operation, ammount=ammount)
+        if confirmation == 0:
+                continue
         balance, statement_append = deposit(ammount, balance)
         statement += statement_append
 
         operation = int(input(next_operation_text))
         while (operation != 1) and (operation != 2):
             print("\nOpção INVÁLIDA! \nTente novamente: ")
-            operation = input(next_operation_text)
+            operation = int(input(next_operation_text))
         if operation == 1:
             continue
         else:
@@ -141,7 +147,10 @@ while True:
                 else:
                     ammount = float(input(f'O valor excede o seu limite de R$ {WITHDRAW_LIMIT:.2f}! Forneça um novo valor: R$ '))
 
-            ammount = check_ammount(operation=operation, ammount=ammount)
+            ammount, confirmation = check_ammount(operation=operation, ammount=ammount)
+            if confirmation == 0:
+                continue
+
             balance, withdraw_counter,statement_append = withdraw(ammount, balance, withdraw_counter)
             statement += statement_append
         
