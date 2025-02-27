@@ -95,14 +95,17 @@ statement = '''
 next_operation_text = '''
 ################### MENU ###################
       DESEJA REALIZAR OUTRA OPERAÇÃO?
+
 [1] - SIM 
 [2] - NÃO 
 
 ############################################
-                       '''
+'''
+no_operations = True
 
 while True:
     
+    previous_balance = balance
     operation = int(input(menu))
     
     if operation == 1:
@@ -129,8 +132,8 @@ while True:
         if operation == 1:
             continue
         else:
-            break      
-
+            break   
+        
     elif operation == 2:
         
         operation = 'sacar'
@@ -168,16 +171,21 @@ while True:
             break
     
     elif operation == 3:
-        
+
         print("\nOperação de VISUALIZAR EXTRATO selecionada!\n")
 
-        statement +=f'''---------------------------------------------
+        if no_operations:
+            print('Ainda não foram realizadas operações!')
+            
+        else:        
+            
+            statement +=f'''---------------------------------------------
 {strftime("%d-%m-%Y %H:%M:%S", gmtime())}   SALDO ATUAL  R$ {balance:.2f}
 ---------------------------------------------
 
 #############################################
 '''
-        print(statement)
+            print(statement)
 
         operation = int(input(next_operation_text))
         while (operation != 1) and (operation != 2):
