@@ -89,7 +89,7 @@ Selecione a operação desejada:
 statement = '''
 ################## EXTRATO ##################
 
-   DATA      HORA       OPERACAO     VALOR
+   DATA      HORA       OPERAÇÃO     VALOR
 '''
 
 next_operation_text = '''
@@ -116,9 +116,10 @@ while True:
         
         ammount = float(input(f"Forneça o valor que quer {operation}: "))
         
-        while ammount < 0:
-            ammount = float(input('Valor invalido! Forneça um novo valor: R$ '))
-        
+        if ammount <= 0:
+            print('Operação falhou! Valor invalido!')
+            continue
+
         ammount, confirmation = check_ammount(operation=operation, ammount=ammount)
         if confirmation == 0:
                 continue
@@ -144,11 +145,13 @@ while True:
             
             ammount = float(input(f"Forneça o valor que quer {operation}: "))
             
-            while (ammount < 0) or (ammount > WITHDRAW_LIMIT):
-                if ((ammount < 0)):
-                    ammount = float(input('Valor invalido! Forneça um novo valor: R$ '))
-                else:
-                    ammount = float(input(f'O valor excede o seu limite de R$ {WITHDRAW_LIMIT:.2f}! Forneça um novo valor: R$ '))
+            
+            if ((ammount < 0)):
+                print('Operalção falhou! Valor invalido!')
+                continue
+            elif(ammount > WITHDRAW_LIMIT):
+                print(f'O valor excede o seu limite de R$ {WITHDRAW_LIMIT:.2f}!')
+                continue
 
             ammount, confirmation = check_ammount(operation=operation, ammount=ammount)
             if confirmation == 0:
@@ -175,17 +178,19 @@ while True:
         print("\nOperação de VISUALIZAR EXTRATO selecionada!\n")
 
         if no_operations:
-            print('Ainda não foram realizadas operações!')
+            statement += '''
+    Ainda não foram realizadas operações!
+    
+'''
+                   
             
-        else:        
-            
-            statement +=f'''---------------------------------------------
+        statement +=f'''---------------------------------------------
 {strftime("%d-%m-%Y %H:%M:%S", gmtime())}   SALDO ATUAL  R$ {balance:.2f}
 ---------------------------------------------
 
 #############################################
 '''
-            print(statement)
+        print(statement)
 
         operation = int(input(next_operation_text))
         while (operation != 1) and (operation != 2):
