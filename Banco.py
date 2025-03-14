@@ -69,7 +69,7 @@ def deposit(ammount, balance):
 def statement(balance):
     print(f'Seu saldo é {balance}')
     
-WITHDRAW_COUNTER_MAX = 3
+WITHDRAW_COUNTER_MAX = 10
 WITHDRAW_LIMIT = 500
 
 balance = 0
